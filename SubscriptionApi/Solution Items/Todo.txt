@@ -1,7 +1,7 @@
 -Create workers/processors for the different acctions
 	* CreateSubscriptionAction: put everything within a action class
 
--Create an External Account Service To Validate users
+-Create an Infrastructure Account Service To Validate users
 
 -Repositories		
 	* move them to internal services

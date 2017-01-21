@@ -7,8 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FB96E945-EF8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECA4D331-435B-4530-8A55-C4F48CF3BE9E}"
 	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
-		..\Todo.txt = ..\Todo.txt
+		..\..\README.md = ..\..\README.md
+		..\Solution Items\Todo.txt = ..\Solution Items\Todo.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureTests", "Tests\InfrastructureTest\InfrastructureTests.csproj", "{BE065E6F-6869-416A-84F2-7C1F0F87D7DB}"
