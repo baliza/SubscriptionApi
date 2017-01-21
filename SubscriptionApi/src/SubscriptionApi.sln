@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FB96E945-EF8E-454A-B7DF-974F7A284B90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECA4D331-435B-4530-8A55-C4F48CF3BE9E}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+		Todo.txt = Todo.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureTests", "InfrastructureTest\InfrastructureTests.csproj", "{BE065E6F-6869-416A-84F2-7C1F0F87D7DB}"
 EndProject
@@ -13,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{72D11D34-F13C-4FC0-80C0-AE028084979D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{59428972-F2B6-424E-B75F-FA2BA39EB1BD}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{59428972-F2B6-424E-B75F-FA2BA39EB1BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalEmailService", "ExternalEmailService\ExternalEmailService.csproj", "{1206FEDC-EEC2-4ED5-B878-EE9B23A135CF}"
 EndProject
@@ -22,6 +26,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{8811BC19-201C-4487-A264-C6704D245010}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{C8396129-626E-4173-B849-34F709C0F6CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{7ACB70F4-7197-49BA-8FB1-534898E873F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventService", "..\ExternalService\EventService\EventService.csproj", "{159D6585-9858-4E12-915F-5A35B74305F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "..\ExternalService\EmailService\EmailService.csproj", "{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +69,18 @@ Global
 		{C8396129-626E-4173-B849-34F709C0F6CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8396129-626E-4173-B849-34F709C0F6CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8396129-626E-4173-B849-34F709C0F6CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{159D6585-9858-4E12-915F-5A35B74305F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{159D6585-9858-4E12-915F-5A35B74305F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{159D6585-9858-4E12-915F-5A35B74305F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{159D6585-9858-4E12-915F-5A35B74305F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +94,8 @@ Global
 		{E9C32C6C-20F1-4DBA-8104-30B553BC991D} = {FB96E945-EF8E-454A-B7DF-974F7A284B90}
 		{8811BC19-201C-4487-A264-C6704D245010} = {FB96E945-EF8E-454A-B7DF-974F7A284B90}
 		{C8396129-626E-4173-B849-34F709C0F6CD} = {59428972-F2B6-424E-B75F-FA2BA39EB1BD}
+		{159D6585-9858-4E12-915F-5A35B74305F9} = {7ACB70F4-7197-49BA-8FB1-534898E873F5}
+		{3C6D9BCF-BD27-4E05-B1A8-2906E128D840} = {7ACB70F4-7197-49BA-8FB1-534898E873F5}
+		{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105} = {59428972-F2B6-424E-B75F-FA2BA39EB1BD}
 	EndGlobalSection
 EndGlobal

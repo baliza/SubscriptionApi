@@ -23,7 +23,7 @@ namespace Api
             container.RegisterType<IProductsService, ProductsService>();
             //Subscriptions
             container.RegisterType<ISubscriptionRepository, SubscriptionRepository>();
-            container.RegisterType<INewsletterRepository, NewslettersRepository>();
+            container.RegisterType<INewsletterRepository, NewsletterRepository>();
             container.RegisterType<ISubscriptionValidator, SubscriptionValidator>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<IEventService, EventService>();
