@@ -3,7 +3,6 @@ using Core.Services;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using Core.Repositories;
-using Infraestructure.Repositories;
 using Infraestructure.Services;
 using Infrastructure.ExternalService.Email;
 using Infrastructure.ExternalService.Event;
