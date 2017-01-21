@@ -13,7 +13,7 @@ namespace Api.Filters
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (userName.ToLowerInvariant() != "eduardo" || password != "Chanllenge")
+            if (userName.ToLowerInvariant() != "eduardo" || password != "Challenge")
             {
                 // No user with userName/password exists.
                 return null;
