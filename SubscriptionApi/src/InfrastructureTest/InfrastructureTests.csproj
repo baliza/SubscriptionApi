@@ -7,8 +7,8 @@
     <ProjectGuid>{BE065E6F-6869-416A-84F2-7C1F0F87D7DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Infrastructure.Tests</RootNamespace>
-    <AssemblyName>Infrastructure.Tests</AssemblyName>
+    <RootNamespace>InfrastructureTests</RootNamespace>
+    <AssemblyName>InfrastructureTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

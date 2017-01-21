@@ -1,14 +1,11 @@
-﻿using Core.Models;
-using Core.Services;
-using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Net;
-using System.Web.Http.Results;
+using Core.Models;
+using Core.Services;
 using WebApi.Controllers;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace WebApi.Tests.Controllers
+namespace WebApiTests.Controllers
 {
     [TestFixture]
     public class SubscriptionControllerTest

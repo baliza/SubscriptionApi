@@ -1,13 +1,13 @@
-﻿using Core.Models;
+﻿using System;
+using Core.Models;
 using Core.Services;
+using ExternalEmailService;
+using ExternalEventService;
 using Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
-using System;
-using ExternalEmailService;
-using ExternalEventService;
 
-namespace Infrastructure.Tests
+namespace InfrastructureTests
 {
     [TestFixture]
     public class InternalSubscriptionServiceTests
