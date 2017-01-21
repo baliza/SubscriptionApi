@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<UsingTask AssemblyFile="..\src\packages\MSBuild.Extension.Pack.1.1.0\lib\net40\MSBuild.ExtensionPack.Iis7.dll" TaskName="MSBuild.ExtensionPack.Web.Iis7AppPool"/>
+	<UsingTask AssemblyFile="..\src\packages\MSBuild.Extension.Pack.1.1.0\lib\net40\MSBuild.ExtensionPack.Iis7.dll" TaskName="MSBuild.ExtensionPack.Web.Iis7Binding"/>
+	<UsingTask AssemblyFile="..\src\packages\MSBuild.Extension.Pack.1.1.0\lib\net40\MSBuild.ExtensionPack.Iis7.dll" TaskName="MSBuild.ExtensionPack.Web.Iis7Website"/>
+
+	<PropertyGroup>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Website Include="internalservices.kobo.com">
+			<BindingInformation>127.0.0.1:80:newsletter.subscription.com</BindingInformation>
+			<Path>src\Api</Path>
+			<RuntimeVersion>v2.0</RuntimeVersion>
+		</Website>
+	
+	</ItemGroup>
+
+	<Target Name="CleanUpIIS" BeforeTargets="SetUpWebsites">
+
+	</Target>
+
+	<Target Name="SetUpWebsites">
+
+		<!-- First you create the MSBuildProject Parent directory Item -->
+		<CreateItem Include="$(MSBuildProjectDirectory)\..\">
+			<Output ItemName="MSBuildProjectParentDirectory" TaskParameter="Include"/>
+		</CreateItem>
+
+		<!-- You can now retrieve its fullpath using Fullpath metadata -->
+		<Message Text="%(MSBuildProjectParentDirectory.Fullpath)"/>
+
+		<!-- Create a property based on parent fullpath-->
+		<CreateProperty Value="%(MSBuildProjectParentDirectory.Fullpath)">
+			<Output PropertyName="CodeFolder" TaskParameter="Value"/>
+		</CreateProperty>
+
+		<MSBuild.ExtensionPack.Web.Iis7AppPool TaskAction="CheckExists" Name="%(Website.Identity)">
+			<Output TaskParameter="Exists" PropertyName="AppPoolExists"/>
+		</MSBuild.ExtensionPack.Web.Iis7AppPool>
+		<Message Text="%(Website.Identity) app pool exists: $(AppPoolExists)"/>
+
+		<MSBuild.ExtensionPack.Web.Iis7AppPool Condition="'$(AppPoolExists)' == 'False'" TaskAction="Create"
+			Name="%(Website.Identity)"
+			Force="true"
+			ManagedRuntimeVersion="%(Website.RuntimeVersion)"
+			PipelineMode="Classic"/>
+
+		<MSBuild.ExtensionPack.Web.Iis7Website TaskAction="CheckExists" Name="%(Website.Identity)">
+			<Output TaskParameter="Exists" PropertyName="SiteExists"/>
+		</MSBuild.ExtensionPack.Web.Iis7Website>
+		<Message Text="%(Website.Identity) exists: $(SiteExists)"/>
+
+		<MSBuild.ExtensionPack.Web.Iis7Website Condition="'$(SiteExists)' == 'False'" TaskAction="Create"
+			Name="%(Website.Identity)"
+			Path="$(CodeFolder)%(Website.Path)" Force="true"
+			AppPool="%(Website.Identity)"
+			Port="80">
+			<Output TaskParameter="SiteID" PropertyName="WebSiteID" />
+		</MSBuild.ExtensionPack.Web.Iis7Website>
+
+		<Message Condition="'$(SiteExists)' == 'False'" Text="Created website with ID $(WebSiteID)" />
+
+		<MSBuild.ExtensionPack.Web.Iis7Binding TaskAction="CheckExists" Name="%(Website.Identity)" BindingInformation="%(Website.BindingInformation)" BindingProtocol="http">
+			<Output TaskParameter="Exists" PropertyName="BindingExists"/>
+		</MSBuild.ExtensionPack.Web.Iis7Binding>
+		<Message Text="%(Website.Identity) binding exists: $(BindingExists)"/>
+
+		<MSBuild.ExtensionPack.Web.Iis7Binding Condition="'$(BindingExists)' == 'False'"
+			TaskAction="Add"
+			Name="%(Website.Identity)"
+			BindingInformation="%(Website.BindingInformation)"
+			BindingProtocol="http" />
+
+		<MSBuild.ExtensionPack.Web.Iis7Binding TaskAction="Remove" Name="%(Website.Identity)" BindingInformation="*:80:" BindingProtocol="http"/>
+
+	</Target>
+
+</Project>

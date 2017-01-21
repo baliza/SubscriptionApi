@@ -35,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "..\External
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{BC1A8185-E45B-4490-B413-174752CE7538}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Build.IISWebsites.proj = ..\build\Build.IISWebsites.proj
+		..\build\Build.proj = ..\build\Build.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

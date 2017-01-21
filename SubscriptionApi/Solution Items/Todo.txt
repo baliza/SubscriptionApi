@@ -4,10 +4,16 @@
 -Create an Infrastructure Account Service To Validate users
 
 -Repositories		
+	* Create CodeFirst DB contexts
 	* move them to internal services
-
+	
 -ExternalServices
 	* link to the wsdl
 	* mock the service
+
+-Builds
+	*Add db builds
+	*Add dev configs 
+	*Add build targets for dev
 
 -Authentication: change it for a bearer one? (OAuth 1.0/2.0???)

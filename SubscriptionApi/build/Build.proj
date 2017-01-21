@@ -1,0 +1,45 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--<Target Name="Nuget">
+    <Exec Command="..\src\.nuget\NuGet.exe install ..\src\.nuget\packages.config -o ..\src\packages" />
+  </Target>-->
+
+  <PropertyGroup>
+    <!-- We can set a default values for MSBuild parameters -->
+    <Configuration>Debug</Configuration>
+    <Environment>dev</Environment>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SolutionsToBuild Include="..\src\api.sln"/>    
+    <InfrastrucutreTestProjects Include="..\src\test\InfrastrucutreTest\InfrastrucutreTest.csproj" />
+    <WebApiTestProjects Include="..\src\test\WebApiTest\WebApiTest.csproj" />
+    <IntegrationProjects Include="..\src\test\IntegrationTest\IntegrationTest.csproj" />
+  </ItemGroup>
+
+  <Target Name="Clean">
+
+    <!-- kill build right away if environment is not supported -->
+    <Error Text="The environment: $(Environment) is not supported."
+			 Condition="'$(Environment)' != 'dev'" />
+
+    <MSBuild Projects="@(SolutionsToBuild)" Targets="Clean"/>
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="Clean">
+
+    <MSBuild Projects="@(SolutionsToBuild)" Properties="Configuration=$(Configuration);" Targets="Build"/>
+
+    <Message Importance="high" Text="FINISHED build compilation." />
+
+  </Target>
+
+  <Target Name="IntegrationTests" DependsOnTargets="Build">
+    <MSBuild Projects="@(IntegrationProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
+  </Target>
+  <Target Name="NunitTests" DependsOnTargets="Build">
+    <MSBuild Projects="@(InfrastrucutreTestProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
+    <MSBuild Projects="@(WebApiTestProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
+  </Target>
+
+</Project>
