@@ -53,11 +53,11 @@
       <Project>{72d11d34-f13c-4fc0-80c0-ae028084979d}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEmailService\Infrastructure.ExternalService.Email.csproj">
+    <ProjectReference Include="..\Infrastructure.ExternalService.Email\Infrastructure.ExternalService.Email.csproj">
       <Project>{1206fedc-eec2-4ed5-b878-ee9b23a135cf}</Project>
       <Name>Infrastructure.ExternalService.Email</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEventService\Infrastructure.ExternalService.Event.csproj">
+    <ProjectReference Include="..\Infrastructure.ExternalService.Event\Infrastructure.ExternalService.Event.csproj">
       <Project>{e9c32c6c-20f1-4dba-8104-30b553bc991d}</Project>
       <Name>Infrastructure.ExternalService.Event</Name>
     </ProjectReference>

@@ -60,19 +60,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\..\Core\Core.csproj">
       <Project>{72D11D34-F13C-4FC0-80C0-AE028084979D}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEmailService\Infrastructure.ExternalService.Email.csproj">
+    <ProjectReference Include="..\..\Infrastructure.ExternalService.Email\Infrastructure.ExternalService.Email.csproj">
       <Project>{1206FEDC-EEC2-4ED5-B878-EE9B23A135CF}</Project>
       <Name>Infrastructure.ExternalService.Email</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEventService\Infrastructure.ExternalService.Event.csproj">
+    <ProjectReference Include="..\..\Infrastructure.ExternalService.Event\Infrastructure.ExternalService.Event.csproj">
       <Project>{E9C32C6C-20F1-4DBA-8104-30B553BC991D}</Project>
       <Name>Infrastructure.ExternalService.Event</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj">
       <Project>{b61d2f8a-91e6-4ed1-a918-9f045e74742b}</Project>
       <Name>Infrastructure</Name>
     </ProjectReference>
