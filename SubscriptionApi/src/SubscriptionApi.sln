@@ -8,10 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECA4D331-435B-4530-8A55-C4F48CF3BE9E}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
-		Todo.txt = Todo.txt
+		..\Todo.txt = ..\Todo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureTests", "InfrastructureTest\InfrastructureTests.csproj", "{BE065E6F-6869-416A-84F2-7C1F0F87D7DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureTests", "Tests\InfrastructureTest\InfrastructureTests.csproj", "{BE065E6F-6869-416A-84F2-7C1F0F87D7DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{B61D2F8A-91E6-4ED1-A918-9F045E74742B}"
 EndProject
@@ -19,21 +19,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{59428972-F2B6-424E-B75F-FA2BA39EB1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ExternalService.Email", "ExternalEmailService\Infrastructure.ExternalService.Email.csproj", "{1206FEDC-EEC2-4ED5-B878-EE9B23A135CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ExternalService.Email", "Infrastructure.ExternalService.Email\Infrastructure.ExternalService.Email.csproj", "{1206FEDC-EEC2-4ED5-B878-EE9B23A135CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ExternalService.Event", "ExternalEventService\Infrastructure.ExternalService.Event.csproj", "{E9C32C6C-20F1-4DBA-8104-30B553BC991D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.ExternalService.Event", "Infrastructure.ExternalService.Event\Infrastructure.ExternalService.Event.csproj", "{E9C32C6C-20F1-4DBA-8104-30B553BC991D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{8811BC19-201C-4487-A264-C6704D245010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "ApiTests\ApiTests.csproj", "{C8396129-626E-4173-B849-34F709C0F6CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "Tests\ApiTests\ApiTests.csproj", "{C8396129-626E-4173-B849-34F709C0F6CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{7ACB70F4-7197-49BA-8FB1-534898E873F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventService", "..\ExternalService\EventService\EventService.csproj", "{159D6585-9858-4E12-915F-5A35B74305F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventService", "..\ExternalServices\EventService\EventService.csproj", "{159D6585-9858-4E12-915F-5A35B74305F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "..\ExternalService\EmailService\EmailService.csproj", "{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "..\ExternalServices\EmailService\EmailService.csproj", "{3C6D9BCF-BD27-4E05-B1A8-2906E128D840}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{0FEB7EFA-AAEF-4F4E-900C-7A433C2FF105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

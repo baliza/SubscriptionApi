@@ -3,14 +3,15 @@
 	
 	- Authentication:
 		+ Basic 
-		+ Credentials:	* user:			eduardo
-						* password:		Challenge
+		+ Credentials:	
+			* user:			eduardo
+			* password:		Challenge
 	
 	-Requeriments:
 		+ IIS server
 		+ Sql server Express
 	
-	- Build binaries and put in IIS
+	- Build binaries and deploy/publish in IIS an application 
 	- Run Sql scripts to Build Database
 	- Deploye Email & Event service into IIS or mock the wsdls with soapui
 
