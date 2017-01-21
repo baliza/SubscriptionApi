@@ -1,0 +1,13 @@
+-Create workers/processors for the different acctions
+	* CreateSubscriptionAction: put everything within a action class
+
+-Create an External Account Service To Validate users
+
+-Repositories		
+	* move them to internal services
+
+-ExternalServices
+	* link to the wsdl
+	* mock the service
+
+-Authentication: change it for a bearer one? (OAuth 1.0/2.0???)
