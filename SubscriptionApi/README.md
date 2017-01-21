@@ -7,7 +7,7 @@
 			* user:			eduardo
 			* password:		Challenge
 	
-	-Requeriments:
+	-Requirements:
 		+ IIS server
 		+ Sql server Express
 	
