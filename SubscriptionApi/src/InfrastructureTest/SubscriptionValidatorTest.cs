@@ -1,7 +1,7 @@
-﻿using Core.Models;
-using Infrastructure.Services;
+﻿using System;
+using Core.Models;
+using Infraestructure.Services;
 using NUnit.Framework;
-using System;
 
 namespace InfrastructureTests
 {

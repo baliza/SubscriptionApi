@@ -1,12 +1,14 @@
 using Api.Controllers;
 using Core.Services;
-using ExternalEmailService;
-using ExternalEventService;
-using Infrastructure.Repositories;
-using Infrastructure.Services;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using Core.Repositories;
+using Infraestructure.Repositories;
+using Infraestructure.Services;
+using Infrastructure.ExternalService.Email;
+using Infrastructure.ExternalService.Event;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Unity.WebApi;
 
 namespace Api
@@ -27,7 +29,7 @@ namespace Api
             container.RegisterType<ISubscriptionValidator, SubscriptionValidator>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<IEventService, EventService>();
-            container.RegisterType<ISubscriptionService, InternalSubscriptionService>();
+            container.RegisterType<ISubscriptionService, SubscriptionService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

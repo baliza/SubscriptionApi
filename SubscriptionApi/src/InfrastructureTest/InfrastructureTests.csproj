@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InternalSubscriptionServiceTests.cs" />
+    <Compile Include="SubscriptionServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscriptionValidatorTest.cs" />
   </ItemGroup>
@@ -64,13 +64,13 @@
       <Project>{72D11D34-F13C-4FC0-80C0-AE028084979D}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEmailService\ExternalEmailService.csproj">
+    <ProjectReference Include="..\ExternalEmailService\Infrastructure.ExternalService.Email.csproj">
       <Project>{1206FEDC-EEC2-4ED5-B878-EE9B23A135CF}</Project>
-      <Name>ExternalEmailService</Name>
+      <Name>Infrastructure.ExternalService.Email</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ExternalEventService\ExternalEventService.csproj">
+    <ProjectReference Include="..\ExternalEventService\Infrastructure.ExternalService.Event.csproj">
       <Project>{E9C32C6C-20F1-4DBA-8104-30B553BC991D}</Project>
-      <Name>ExternalEventService</Name>
+      <Name>Infrastructure.ExternalService.Event</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{b61d2f8a-91e6-4ed1-a918-9f045e74742b}</Project>

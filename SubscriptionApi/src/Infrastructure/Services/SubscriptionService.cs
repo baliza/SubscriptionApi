@@ -1,12 +1,13 @@
 ﻿using System;
 using Core.Repositories;
 using Core.Services;
-using ExternalEmailService;
-using ExternalEventService;
+using Infrastructure.ExternalService.Email;
+using Infrastructure.ExternalService.Event;
+using Infrastructure.Services;
 
-namespace Infrastructure.Services
+namespace Infraestructure.Services
 {
-    public class InternalSubscriptionService : ISubscriptionService
+    public class SubscriptionService : ISubscriptionService
     {
         private readonly ISubscriptionRepository _subscriptionrepository;
         private readonly INewsletterRepository _newsletterRepository;
@@ -14,7 +15,7 @@ namespace Infrastructure.Services
         private readonly IEventService _eventService;
         private readonly IEmailService _emailService;
 
-        public InternalSubscriptionService(ISubscriptionRepository subscriptionrepository, INewsletterRepository newsletterRepository, ISubscriptionValidator subscriptionValidator, IEventService eventService, IEmailService emailService)
+        public SubscriptionService(ISubscriptionRepository subscriptionrepository, INewsletterRepository newsletterRepository, ISubscriptionValidator subscriptionValidator, IEventService eventService, IEmailService emailService)
         {
             _subscriptionrepository = subscriptionrepository;
             _newsletterRepository = newsletterRepository;

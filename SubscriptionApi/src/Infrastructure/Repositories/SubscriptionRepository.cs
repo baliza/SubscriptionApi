@@ -3,9 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Core.Models;
 using Core.Repositories;
-using Core.Services;
 
-namespace Infrastructure.Repositories
+namespace Infraestructure.Repositories
 {
     public class SubscriptionRepository : ISubscriptionRepository
     {

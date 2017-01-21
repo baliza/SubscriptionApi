@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExternalEventService
+namespace Infrastructure.ExternalService.Event
 {
     public class EventService : IEventService
     {

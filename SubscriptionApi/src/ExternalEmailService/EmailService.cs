@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExternalEmailService
+namespace Infrastructure.ExternalService.Email
 {
     public class EmailService : IEmailService
     {

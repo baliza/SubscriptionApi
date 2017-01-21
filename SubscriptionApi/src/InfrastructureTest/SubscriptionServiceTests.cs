@@ -1,18 +1,19 @@
-﻿using Core.Helpers;
+﻿using System;
+using Core.Helpers;
 using Core.Models;
 using Core.Repositories;
 using Core.Services;
-using ExternalEmailService;
-using ExternalEventService;
+using Infraestructure.Services;
+using Infrastructure.ExternalService.Email;
+using Infrastructure.ExternalService.Event;
 using Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
-using System;
 
 namespace InfrastructureTests
 {
     [TestFixture]
-    public class InternalSubscriptionServiceTests
+    public class SubscriptionServiceTests
     {
         private Mock<IEmailService> _mockEmailService;
         private Mock<IEventService> _mockEventService;
@@ -116,7 +117,7 @@ namespace InfrastructureTests
                 Subscription = _subscription
             };
 
-            var service = new InternalSubscriptionService(null, null, null, null, null);
+            var service = new SubscriptionService(null, null, null, null, null);
             var response = service.Create(request);
 
             Assert.AreEqual(CreateResults.Failed, response.Result);
@@ -142,9 +143,9 @@ namespace InfrastructureTests
             _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Once);
         }
 
-        private InternalSubscriptionService CreateInternalSubscriptionService()
+        private SubscriptionService CreateInternalSubscriptionService()
         {
-            return new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockINewslettersRepository.Object,
+            return new SubscriptionService(_mockSubscriptionRepository.Object, _mockINewslettersRepository.Object,
                 _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
         }
     }

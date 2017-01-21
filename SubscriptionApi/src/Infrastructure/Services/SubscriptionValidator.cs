@@ -1,10 +1,11 @@
-﻿using Core.Helpers;
-using Core.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Net.Mail;
+using Core.Helpers;
+using Core.Models;
+using Infrastructure.Services;
 
-namespace Infrastructure.Services
+namespace Infraestructure.Services
 {
     public class SubscriptionValidator : ISubscriptionValidator
     {

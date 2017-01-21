@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Core.Models;
 using Core.Repositories;
 
@@ -16,14 +13,14 @@ namespace Infrastructure.Repositories
         public NewsletterRepository()
         {
             var newsletterGuid = Guid.Parse("755302af-6569-40e2-a49a-74f7882d68c6");
-            Add(new Newsletter
-                {
-                    Key = newsletterGuid.ToString(),
-                    Name = "Newsletter name",
-                    Start = new DateTime(1, 1, 2017),
-                    End = new DateTime(1, 1, 2027),
-                }
-            );
+            var item = new Newsletter
+            {
+                Key = newsletterGuid.ToString(),
+                Name = "Sport Challenge",
+                Start = new DateTime(2017, 1, 1),
+                End = new DateTime(2027, 1, 1),
+            };
+            Newsletters[item.Key] = item;
         }
 
         public Newsletter Add(Newsletter item)

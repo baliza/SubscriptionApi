@@ -4,7 +4,6 @@ using System.Web.Http.Results;
 using Api.Controllers;
 using C=Core.Models;
 using Core.Services;
-using Infrastructure.Services;
 using NUnit.Framework;
 using Moq;
 using Subscription = Api.Models.Subscription;
