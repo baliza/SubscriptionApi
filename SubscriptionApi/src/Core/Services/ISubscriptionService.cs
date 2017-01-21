@@ -1,6 +1,4 @@
-﻿using Core.Models;
-
-namespace Core.Services
+﻿namespace Core.Services
 {
     public interface ISubscriptionService
     {

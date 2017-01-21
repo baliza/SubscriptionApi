@@ -1,18 +1,15 @@
 ﻿using Core.Models;
 using Core.Services;
+using Infrastructure.Services;
 using System.Net;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace WebApi.Controllers
 {
-    //[RoutePrefix("api/Subscription")]
-   
     public class SubscriptionController : ApiController
     {
-        public SubscriptionController() 
+        public SubscriptionController()
         {
-
         }
 
         public SubscriptionController(ISubscriptionService internalService)
@@ -22,7 +19,7 @@ namespace WebApi.Controllers
 
         private readonly ISubscriptionService _internalService;
 
-        [System.Web.Http.HttpPost]        
+        [HttpPost]
         public IHttpActionResult Post([FromBody] Subscription item)
         {
             if (item == null)
@@ -42,5 +39,5 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-    }   
+    }
 }

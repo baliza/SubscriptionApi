@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Models;
 
-namespace Core.Services
+namespace Core.Repositories
 {
     public interface ISubscriptionRepository
     {

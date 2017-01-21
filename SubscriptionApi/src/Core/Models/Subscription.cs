@@ -4,7 +4,7 @@ namespace Core.Models
 {
     public class Subscription
     {
-        public string Key { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }        
         public string FirstName { get; set; }
         public string Gender { get; set; }        
@@ -12,4 +12,5 @@ namespace Core.Models
         public bool MarketingConsent { get; set; }
         public string NewsletterId { get; set; }
     }
+
 }

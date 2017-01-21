@@ -1,31 +1,32 @@
-﻿using System;
+﻿using Core.Helpers;
 using Core.Models;
+using Core.Repositories;
 using Core.Services;
 using ExternalEmailService;
 using ExternalEventService;
 using Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
+using System;
 
 namespace InfrastructureTests
 {
     [TestFixture]
     public class InternalSubscriptionServiceTests
     {
-        private InternalSubscriptionService _service;
-        private Subscription _subscription;
-
-        private Mock<ISubscriptionRepository> _mockSubscriptionRepository;
-        private Mock<IEventService> _mockEventService;
         private Mock<IEmailService> _mockEmailService;
+        private Mock<IEventService> _mockEventService;
+        private Mock<INewsletterRepository> _mockINewslettersRepository;
+        private Mock<ISubscriptionRepository> _mockSubscriptionRepository;
         private Mock<ISubscriptionValidator> _mockSubscriptionValidator;
+        private Subscription _subscription;
 
         [SetUp]
         public void SetUp()
         {
             _subscription = new Subscription
             {
-                Key = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid().ToString(),
                 DateOfBirth = DateTime.UtcNow.AddYears(20),
                 Email = "user@email.com",
                 Gender = "F",
@@ -33,20 +34,92 @@ namespace InfrastructureTests
                 MarketingConsent = true,
                 NewsletterId = Guid.NewGuid().ToString()
             };
-            Subscription nullSub = null;
 
             _mockSubscriptionRepository = new Mock<ISubscriptionRepository>();
-            _mockSubscriptionRepository.Setup(x => x.Find(It.IsAny<string>())).Returns(nullSub);
+            _mockSubscriptionRepository.Setup(x => x.Find(It.IsAny<string>())).Returns((Subscription)null);
             _mockSubscriptionRepository.Setup(x => x.Add(It.IsAny<Subscription>())).Returns(_subscription);
 
+            _mockINewslettersRepository = new Mock<INewsletterRepository>();
+            _mockINewslettersRepository.Setup(x => x.Find(It.IsAny<string>())).Returns(new Newsletter
+            {
+                Start = DateTime.UtcNow.AddDays(-5),
+                End = DateTime.UtcNow.AddDays(5),
+            });
+
             _mockEventService = new Mock<IEventService>();
-            _mockEventService.Setup(x => x.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>())).Returns(new NewSubscriptionCreatedResponse());
+            _mockEventService.Setup(x => x.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()))
+                .Returns(new NewSubscriptionCreatedResponse());
 
             _mockEmailService = new Mock<IEmailService>();
-            _mockEmailService.Setup(x => x.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>())).Returns(new SendWelcomeEmailResponse());
+            _mockEmailService.Setup(x => x.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()))
+                .Returns(new SendWelcomeEmailResponse());
 
             _mockSubscriptionValidator = new Mock<ISubscriptionValidator>();
-            _mockSubscriptionValidator.Setup(x => x.Validate(It.IsAny<Subscription>())).Returns(string.Empty);
+            _mockSubscriptionValidator.Setup(x => x.Validate(It.IsAny<Subscription>()))
+                .Returns(new SimpleTrueFalseActionResult());
+        }
+
+        [Test]
+        public void Returns_BadRequest_for_finnished_newsletter()
+        {
+            _mockINewslettersRepository.Setup(x => x.Find(It.IsAny<string>())).Returns(new Newsletter
+            {
+                Start = DateTime.UtcNow.AddDays(-5),
+                End = DateTime.UtcNow.AddDays(-1),
+            });
+
+            var request = new CreateSubscriptionRequest
+            {
+                Subscription = _subscription
+            };
+
+            var service = CreateInternalSubscriptionService();
+            var response = service.Create(request);
+
+            Assert.AreEqual(CreateResults.BadRequest, response.Result);
+            Assert.AreEqual("newsletter ended", response.ErrorMessage);
+
+            _mockINewslettersRepository.Verify(s => s.Find(It.IsAny<string>()), Times.Once);
+
+            _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Never);
+            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Never);
+            _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Never);
+        }
+
+        [Test]
+        public void Returns_BadRequest_for_invalid_subscription()
+        {
+            _mockINewslettersRepository.Setup(x => x.Find(It.IsAny<string>())).Returns((Newsletter)null);
+
+            var request = new CreateSubscriptionRequest
+            {
+                Subscription = _subscription
+            };
+            var service = CreateInternalSubscriptionService();
+            var response = service.Create(request);
+
+            Assert.AreEqual(CreateResults.BadRequest, response.Result);
+            Assert.AreEqual("newsletter not found", response.ErrorMessage);
+
+            _mockINewslettersRepository.Verify(s => s.Find(It.IsAny<string>()), Times.Once);
+
+            _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Never);
+            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Never);
+            _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Never);
+        }
+
+        [Test]
+        public void Returns_Failed_when_not_dependencies_setup()
+        {
+            var request = new CreateSubscriptionRequest
+            {
+                Subscription = _subscription
+            };
+
+            var service = new InternalSubscriptionService(null, null, null, null, null);
+            var response = service.Create(request);
+
+            Assert.AreEqual(CreateResults.Failed, response.Result);
         }
 
         [Test]
@@ -56,70 +129,23 @@ namespace InfrastructureTests
             {
                 Subscription = _subscription
             };
-            _service = new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
-            var response = _service.Create(request);
+            var service = CreateInternalSubscriptionService();
+            var response = service.Create(request);
 
-            Assert.AreEqual(response.Result, CreateResults.Ok);
-            Assert.AreEqual(response.Item, _subscription.Key);
+            Assert.AreEqual(CreateResults.Ok, response.Result);
+            Assert.AreEqual(_subscription.Id, response.Item);
+
             _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Once);
-            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Once);
+            _mockINewslettersRepository.Verify(x => x.Find(It.IsAny<string>()), Times.Once);
+            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()),
+                Times.Once);
             _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Once);
-        }        
-
-        [Test]
-        public void Returns_BadRequest_for_invalid_request_young_person()
-        {
-            var request = new CreateSubscriptionRequest
-            {
-                Subscription = _subscription
-            };
-            _mockSubscriptionValidator.Setup(x => x.Validate(It.IsAny<Subscription>())).Returns("not valid dateOfBirth");
-            _service = new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
-            var response = _service.Create(request);
-
-            Assert.AreEqual(response.Result, CreateResults.BadRequest);
-            Assert.AreEqual(response.Error, "not valid dateOfBirth");
-            _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Never);
-            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Never);
-            _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Never);
         }
 
-        [Test]
-        public void Returns_BadRequest_for_invalid_email()
+        private InternalSubscriptionService CreateInternalSubscriptionService()
         {
-            _subscription.Email = string.Empty;
-            var request = new CreateSubscriptionRequest
-            {
-                Subscription = _subscription
-            };
-            _mockSubscriptionValidator.Setup(x => x.Validate(It.IsAny<Subscription>())).Returns("not valid email");
-            _service = new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
-            var response = _service.Create(request);
-
-            Assert.AreEqual(response.Result, CreateResults.BadRequest);
-            Assert.AreEqual(response.Error, "not valid email");
-            _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Never);
-            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Never);
-            _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Never);
-        }
-
-        [Test]
-        public void Returns_BadRequest_for_invalid_NewsletterId()
-        {
-            _subscription.NewsletterId = string.Empty;
-            var request = new CreateSubscriptionRequest
-            {
-                Subscription = _subscription
-            };
-            _mockSubscriptionValidator.Setup(x => x.Validate(It.IsAny<Subscription>())).Returns("not valid newsletterId");
-            _service = new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
-            var response = _service.Create(request);
-
-            Assert.AreEqual(response.Result, CreateResults.BadRequest);
-            Assert.AreEqual(response.Error, "not valid newsletterId");
-            _mockSubscriptionRepository.Verify(s => s.Add(It.IsAny<Subscription>()), Times.Never);
-            _mockEventService.Verify(s => s.NewSubscriptionCreated(It.IsAny<NewSubscriptionCreatedRequest>()), Times.Never);
-            _mockEmailService.Verify(s => s.SendWelcomeEmail(It.IsAny<SendWelcomeEmailRequest>()), Times.Never);
+            return new InternalSubscriptionService(_mockSubscriptionRepository.Object, _mockINewslettersRepository.Object,
+                _mockSubscriptionValidator.Object, _mockEventService.Object, _mockEmailService.Object);
         }
     }
 }

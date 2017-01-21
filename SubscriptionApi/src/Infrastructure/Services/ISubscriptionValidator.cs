@@ -1,9 +1,10 @@
-﻿using Core.Models;
+﻿using Core.Helpers;
+using Core.Models;
 
 namespace Infrastructure.Services
 {
     public interface ISubscriptionValidator
     {
-        string Validate(Subscription subscription);
+        SimpleTrueFalseActionResult Validate(Subscription subscription);
     }
 }

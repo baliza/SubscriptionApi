@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Core.Models;
+using Core.Repositories;
 using Core.Services;
 
 namespace Infrastructure.Repositories
@@ -17,8 +18,8 @@ namespace Infrastructure.Repositories
 
         public Subscription Add(Subscription item)
         {
-            item.Key = Guid.NewGuid().ToString();
-            Subscriptions[item.Key] = item;
+            item.Id = Guid.NewGuid().ToString();
+            Subscriptions[item.Id] = item;
             return item;
         }
 
@@ -43,7 +44,7 @@ namespace Infrastructure.Repositories
 
         public void Update(Subscription item)
         {
-            Subscriptions[item.Key] = item;
+            Subscriptions[item.Id] = item;
         }
     }
 }

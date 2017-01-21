@@ -5,6 +5,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using Core.Repositories;
 using Unity.WebApi;
 
 namespace WebApi

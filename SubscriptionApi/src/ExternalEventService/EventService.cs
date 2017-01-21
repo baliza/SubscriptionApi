@@ -12,7 +12,7 @@ namespace ExternalEventService
 
     public class NewSubscriptionCreatedRequest
     {
-        public Guid SuscriptionId { get; set; }
+        public Guid SubscriptionId { get; set; }
     }
 
     public interface IEventService

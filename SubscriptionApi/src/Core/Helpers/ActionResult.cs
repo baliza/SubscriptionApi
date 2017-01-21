@@ -1,8 +1,24 @@
 ﻿namespace Core.Helpers
 {
+    public class SimpleTrueFalseActionResult
+    {
+        public SimpleTrueFalseActionResult()
+        {
+            Succeeded = true;
+        }
+
+        public SimpleTrueFalseActionResult(string errorMessage)
+        {
+            ErrorMessage = errorMessage;
+            Succeeded = false;
+        }
+
+        public bool Succeeded { get; set; }
+        public string ErrorMessage { get; set; }
+    }
+
     public class ActionResult<TResult, TItem>
     {
-
         public ActionResult(TResult result)
         {
             Result = result;
@@ -15,7 +31,7 @@
         }
 
         public TResult Result { get; set; }
-        public string Error { get; set; }
+        public string ErrorMessage { get; set; }
         public TItem Item { get; set; }
     }
 }

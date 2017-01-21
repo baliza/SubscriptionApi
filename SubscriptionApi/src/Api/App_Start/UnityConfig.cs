@@ -6,6 +6,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using Core.Repositories;
 using Unity.WebApi;
 
 namespace Api
@@ -22,6 +23,7 @@ namespace Api
             container.RegisterType<IProductsService, ProductsService>();
             //Subscriptions
             container.RegisterType<ISubscriptionRepository, SubscriptionRepository>();
+            container.RegisterType<INewsletterRepository, NewslettersRepository>();
             container.RegisterType<ISubscriptionValidator, SubscriptionValidator>();
             container.RegisterType<IEmailService, EmailService>();
             container.RegisterType<IEventService, EventService>();

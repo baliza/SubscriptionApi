@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="InternalSubscriptionServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubscriptionValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

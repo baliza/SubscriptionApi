@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Http.Results;
 using Core.Models;
 using Core.Services;
+using Infrastructure.Services;
 using Moq;
 using NUnit.Framework;
 using WebApi.Controllers;
@@ -24,7 +25,7 @@ namespace WebApiTests.Controllers
 
             _subscription = new Subscription
             {
-                Key = _key.ToString(),
+                Id = _key.ToString(),
                 Email = "user@email.com",
                 DateOfBirth = DateTime.UtcNow.AddYears(-20),
                 Gender = "f",
