@@ -1,5 +1,4 @@
-﻿using Core.Helpers;
-using Core.Models;
+﻿using Core.Models;
 
 namespace Core.Services
 {
@@ -7,8 +6,4 @@ namespace Core.Services
     {
         CreateSubscriptionResponse Create(CreateSubscriptionRequest request);
     }
-
-  
-
-   
 }
