@@ -11,10 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SolutionsToBuild Include="..\src\api.sln"/>    
-    <InfrastrucutreTestProjects Include="..\src\test\InfrastrucutreTest\InfrastrucutreTest.csproj" />
-    <WebApiTestProjects Include="..\src\test\WebApiTest\WebApiTest.csproj" />
-    <IntegrationProjects Include="..\src\test\IntegrationTest\IntegrationTest.csproj" />
+    <SolutionsToBuild Include="..\src\SubscriptionApi.sln"/>
+    <InfrastrucutreTestProjects Include="..\src\Tests\InfrastructureTest\InfrastructureTests.csproj" />
+    <ApiTestProjects Include="..\src\Tests\ApiTests\ApiTests.csproj" />
+    <IntegrationProjects Include="..\src\Tests\IntegrationTest\IntegrationTests.csproj" />
   </ItemGroup>
 
   <Target Name="Clean">
@@ -38,8 +38,8 @@
     <MSBuild Projects="@(IntegrationProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
   </Target>
   <Target Name="NunitTests" DependsOnTargets="Build">
-    <MSBuild Projects="@(InfrastrucutreTestProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
-    <MSBuild Projects="@(WebApiTestProjects)" Properties="Configuration=$(Configuration);" Targets="AdditionalTasks;" />
+    <MSBuild Projects="@(InfrastrucutreTestProjects)" Properties="Configuration=$(Configuration);" />
+    <MSBuild Projects="@(ApiTestProjects)" Properties="Configuration=$(Configuration);" />
   </Target>
 
 </Project>
