@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.ExternalService.Email;
@@ -36,8 +37,18 @@ namespace Infraestructure.Services
                 var newsletter = _newsletterRepository.Find(subscription.NewsletterId);
                 if (newsletter == null)
                     return new CreateSubscriptionResponse(CreateResults.BadRequest) { ErrorMessage = "newsletter not found" };
+
                 if (newsletter.End <= DateTime.Today)
                     return new CreateSubscriptionResponse(CreateResults.BadRequest) { ErrorMessage = "newsletter ended" };
+
+                //todo: this should be in a service
+                var items = _subscriptionrepository.FindAll(subscription.Email);
+
+                if (items != null && items.Count > 0)
+                {
+                    if (items.Any(s=>s.NewsletterId.ToLowerInvariant() == subscription.NewsletterId.ToLowerInvariant()))
+                        return new CreateSubscriptionResponse(CreateResults.Existing) { ErrorMessage = "email already registered"};
+                }
 
                 var item = _subscriptionrepository.Add(subscription);
 
@@ -45,7 +56,7 @@ namespace Infraestructure.Services
                 {
                     SubscriptionId= Guid.Parse(item.Id),
                 });
-                _emailService.SendWelcomeEmail(new SendWelcomeEmailRequest()
+                _emailService.SendWelcomeEmail(new SendWelcomeEmailRequest
                 {
                     SubscriptionId = Guid.Parse(item.Id),
                 });
