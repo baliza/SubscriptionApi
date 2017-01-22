@@ -1,45 +1,56 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using Core.Models;
+﻿using Core.Models;
 using Core.Repositories;
+using System;
+using System.Linq;
 
 namespace Infrastructure.Repositories
 {
-    public class NewsletterRepository : INewsletterRepository
+    public class NewsletterRepository : INewsletterRepository, IDisposable
     {
-        private static readonly ConcurrentDictionary<string, Newsletter> Newsletters = new ConcurrentDictionary<string, Newsletter>();
+        private readonly Database.MarketingEntities _context;
+
+        private bool _disposed;
 
         public NewsletterRepository()
         {
-            var newsletterGuid = Guid.Parse("755302af-6569-40e2-a49a-74f7882d68c6");
-            var item = new Newsletter
-            {
-                Key = newsletterGuid.ToString(),
-                Name = "Sport Challenge",
-                Start = new DateTime(2017, 1, 1),
-                End = new DateTime(2027, 1, 1),
-            };
-            Newsletters[item.Key] = item;
+            _context = new Database.MarketingEntities();
         }
 
-        public Newsletter Add(Newsletter item)
+        public void Dispose()
         {
-            item.Key = Guid.NewGuid().ToString();
-            Newsletters[item.Key] = item;
-            return item;
-        }
-
-        public IEnumerable<Newsletter> GetAll()
-        {
-            return Newsletters.Values;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public Newsletter Find(string id)
         {
-            Newsletter item;
-            Newsletters.TryGetValue(id, out item);
-            return item;
+            var gId = Guid.Parse(id);
+            var n = _context.Newsletters.FirstOrDefault(x => x.Id == gId);
+            if (n == null) return null;
+
+            return new Newsletter
+            {
+                Id = n.Id.ToString(),
+                Name = n.Name,
+                Start = n.Start,
+                End = n.End,
+            };
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            _disposed = true;
         }
     }
 }
