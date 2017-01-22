@@ -12,5 +12,8 @@
 		+ Sql server Express
 	
 	- Build binaries and deploy/publish in IIS an application 
+	- Create user: eduman on SQl Server
+	- Attach Db to your local SQlServer
 	- Run Sql scripts to Build Database
-	- Deploye Email & Event service into IIS or mock the wsdls with soapui
+	- Deploy Email & Event service into IIS/ mock the wsdls with soapui (when external services connected)
+	- See todo list to check tasks to do
