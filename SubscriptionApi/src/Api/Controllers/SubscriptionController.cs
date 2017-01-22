@@ -33,20 +33,21 @@ namespace Api.Controllers
                 {
                     Subscription = MapSubscription(subscription)
                 };
-                var key = _internalService.Create(request);
-                switch (key.Result)
+                var response = _internalService.Create(request);
+                switch (response.Result)
                 {
                     case CreateResults.Ok:
-                        return Ok(key.Item);
+                        return Ok(response.Item);
 
                     case CreateResults.Existing:
-                        return StatusCode(HttpStatusCode.NoContent);
+                        return BadRequest("existing subscreipber");
                 }
-                return BadRequest();
+                return BadRequest(response.ErrorMessage);
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return StatusCode(HttpStatusCode.NoContent);
+                
             }
         }
 

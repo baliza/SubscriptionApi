@@ -20,8 +20,6 @@ namespace Api
 
             // register all your components with the container here
 
-            //Products
-            container.RegisterType<IProductsService, ProductsService>();
             //Subscriptions
             container.RegisterType<ISubscriptionRepository, SubscriptionRepository>();
             container.RegisterType<INewsletterRepository, NewsletterRepository>();

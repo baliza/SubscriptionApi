@@ -17,9 +17,12 @@ namespace Infrastructure.Repositories
             context = new Database.MarketingEntities();
         }
 
-        public Subscription Add(Subscription item)
+        public Subscription Add(Subscription subscription)
         {
-            throw new NotImplementedException();
+            subscription.Id = Guid.NewGuid().ToString();
+            var s = context.Subscriptions.Add(MapIn(subscription));
+            Save();
+            return MapOut(s);
         }
 
         public void Dispose()
@@ -28,9 +31,9 @@ namespace Infrastructure.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public Subscription Find(string key)
+        public Subscription Find(string id)
         {
-            var s = context.Subscriptions.FirstOrDefault(x => x.Id.ToString() == key);
+            var s = context.Subscriptions.FirstOrDefault(x => x.Id.ToString() == id);
             return s == null ? null : MapOut(s);
         }
 

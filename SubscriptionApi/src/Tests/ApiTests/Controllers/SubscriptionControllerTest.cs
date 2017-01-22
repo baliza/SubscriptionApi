@@ -63,7 +63,7 @@ namespace ApiTests.Controllers
         }
 
         [Test]
-        public void Create_Responses_NoContent()
+        public void Create_Responses_BadRequest()
         {
             _mockInternalService.Setup(x => x.Create(It.IsAny<CreateSubscriptionRequest>()))
                 .Returns(new CreateSubscriptionResponse(CreateResults.Existing));
@@ -71,14 +71,12 @@ namespace ApiTests.Controllers
 
             var result = controller.Post(_subscription);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf(typeof(StatusCodeResult), result);
-            var resultedCode = (StatusCodeResult)result;
-            Assert.AreEqual(resultedCode.StatusCode, HttpStatusCode.NoContent);
+            Assert.IsInstanceOf(typeof(BadRequestErrorMessageResult), result);
+            _mockInternalService.Verify(s => s.Create(It.IsAny<CreateSubscriptionRequest>()), Times.Once);
         }        
 
         [Test]
-        public void Create_Responses_BadRequest()
+        public void Create_Responses_NoContent()
         {
             _mockInternalService.Setup(x => x.Create(It.IsAny<CreateSubscriptionRequest>()))
                 .Returns(new CreateSubscriptionResponse(CreateResults.Failed));
@@ -87,9 +85,10 @@ namespace ApiTests.Controllers
 
             var result = controller.Post(_subscription);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf(typeof(BadRequestResult), result);
-            _mockInternalService.Verify(s => s.Create(It.IsAny<CreateSubscriptionRequest>()), Times.Once);
+            Assert.IsInstanceOf(typeof(StatusCodeResult), result);
+            var resultedCode = (StatusCodeResult)result;
+            Assert.AreEqual(resultedCode.StatusCode, HttpStatusCode.NoContent);
+            
         }
     }
 }

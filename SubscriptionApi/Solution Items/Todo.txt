@@ -3,6 +3,8 @@
 
 -Create an Infrastructure Account Service To Validate users
 
+-Add some mapping tool (ie AutoMapper)
+
 -Repositories		
 	* Create CodeFirst DB contexts
 	* move them to internal services

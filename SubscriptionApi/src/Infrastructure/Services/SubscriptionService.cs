@@ -63,7 +63,7 @@ namespace Infraestructure.Services
 
                 return new CreateSubscriptionResponse(item);
             }
-            catch
+            catch (Exception ex)
             {
                 return new CreateSubscriptionResponse(CreateResults.Failed);
             }
