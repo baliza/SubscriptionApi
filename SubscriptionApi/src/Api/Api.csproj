@@ -137,6 +137,10 @@
       <Project>{72d11d34-f13c-4fc0-80c0-ae028084979d}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{805a27fa-4fc1-4c01-8e34-ba0db320bfd2}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.ExternalService.Email\Infrastructure.ExternalService.Email.csproj">
       <Project>{1206fedc-eec2-4ed5-b878-ee9b23a135cf}</Project>
       <Name>Infrastructure.ExternalService.Email</Name>
